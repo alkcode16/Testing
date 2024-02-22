@@ -5,14 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { ReporteadorComponent } from './modulos/reporteador/reporteador.component';
 import { MainComponent } from './modulos/main/main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ReporteadorComponent,
-    MainComponent
+    MainComponent,
+    
   ],
   imports: [
     BrowserModule,
