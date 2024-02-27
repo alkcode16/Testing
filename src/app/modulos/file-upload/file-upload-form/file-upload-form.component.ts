@@ -2,14 +2,16 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ConnectionService } from 'src/app/servicios/connection.service';
 import {saveAs} from 'file-saver';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-file-upload-form',
   templateUrl: './file-upload-form.component.html',
+  // imports: [NgbNavModule],
   styleUrls: ['./file-upload-form.component.scss']
 })
 export class FileUploadFormComponent {
-
+  active = 1;
   carpeta = new FormControl();
   allFiles: any = [];
   nombre = new FormControl('');
@@ -97,17 +99,6 @@ export class FileUploadFormComponent {
       apellidos: this.apellidos.value,
       archivos: this.arr
     }
-
-    console.log('Send all reg: ',registroMultiple);
-    
-    // this.connection.post('save/archivosMult', registroMultiple)
-    // .subscribe((data)=>{
-    //   alert('Archivo enviado');
-    //   // this.nombre.reset();
-    //   // this.apellidos.reset();
-    //   // this.formData.set('fichero', '');
-    //   window.location.reload();
-    // })
   }
 
 }

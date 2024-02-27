@@ -1,53 +1,51 @@
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <h1>Formulario para archvivos</h1>
-            <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                        type="button" role="tab" aria-controls="nav-home" aria-selected="true"
-                        style="color: rgb(204, 193, 129);">Un archivo</a>
-                    <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
-                        type="button" role="tab" aria-controls="nav-profile" aria-selected="false"
-                        style="color: rgb(204, 193, 129);">Varios archivos</a>
-                </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent" style="margin-top: 20px;">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <input type="text" placeholder="RFC" class="form-control" [formControl]="this.nombre" />
-                    <input type="text" placeholder="Nombre" class="form-control" [formControl]="this.apellidos" />
-                    <input id="uploadCaptureInputFile" type="file" class="form-control"
-                        (change)="onFileSelected($event)" #fileUpload />
-                </div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <input type="text" placeholder="RFC" class="form-control" [formControl]="this.nombre" />
-                    <input type="text" placeholder="Nombre" class="form-control" [formControl]="this.apellidos" />
-                    <input id="uploadCaptureInputFile" type="file" class="form-control"
-                        (change)="onMultipleFiles($event)" multiple #multipleFiles>
-                    <div class="file-upload">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Tamaño</th>
-                                    <th scope="col">Tipo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let file of arr; let i = index">
-                                    <td>{{file.name}}</td>
-                                    <td>{{file.size}} Bytes</td>
-                                    <td>{{file.type}}</td>
-                                </tr>
-                                <tr class="text-center" *ngIf="filesNames.length === 0">
-                                    <td colspan="4"><strong>Sin archivos aún</strong></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
-            </div>
+            <h1>Registro de archivos</h1>
+            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                <li [ngbNavItem]="1">
+                    <a class="nav-link" ngbNavLink>Un archivo</a>
+                    <ng-template ngbNavContent>
+                        <input type="text" placeholder="RFC" class="form-control" [formControl]="this.nombre" />
+                        <input type="text" placeholder="Nombre" class="form-control"
+                            [formControl]="this.apellidos" />
+                        <input id="uploadCaptureInputFile" type="file" class="form-control"
+                            (change)="onFileSelected($event)" #fileUpload />
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="2">
+                    <a class="nav-link" ngbNavLink>Varios archivos</a>
+                    <ng-template ngbNavContent>
+                        <input type="text" placeholder="RFC" class="form-control" [formControl]="this.nombre" />
+                            <input type="text" placeholder="Nombre" class="form-control"
+                                [formControl]="this.apellidos" />
+                            <input id="uploadCaptureInputFile" type="file" class="form-control"
+                                (change)="onMultipleFiles($event)" multiple #multipleFiles>
+                            <div class="file-upload">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Tamaño</th>
+                                            <th scope="col">Tipo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let file of arr; let i = index">
+                                            <td>{{file.name}}</td>
+                                            <td>{{file.size}} Bytes</td>
+                                            <td>{{file.type}}</td>
+                                        </tr>
+                                        <tr class="text-center" *ngIf="filesNames.length === 0">
+                                            <td colspan="4"><strong>Sin archivos aún</strong></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
             <button class="btn btn-outline-success" (click)="enviarFormularioPost()">
                 Enviar
             </button>

@@ -6,6 +6,7 @@ import { FileUploadRequestComponent } from './file-upload-request/file-upload-re
 import { FileUploadFormComponent } from './file-upload-form/file-upload-form.component';
 import { FileUploadComponent } from './file-upload.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FileUploadRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbNavModule
   ]
 })
 export class FileUploadModule { }
