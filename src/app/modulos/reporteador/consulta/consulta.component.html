@@ -1,0 +1,51 @@
+<div class="container form-group d-grid gap-2 col-6 mx-auto mt-5">
+    <div class="row">
+        <!-- Fecha de pago -->
+        <div class="col-lg-6 text-center">
+            <label>
+                <strong>
+                    Fecha de pago:
+                </strong>
+            </label>
+        </div>
+    
+        <div class="col-lg-6 text-center">
+            <div class="input-group">
+                <input
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    [(ngModel)]="model"
+                    ngbDatepicker
+                    #d="ngbDatepicker"
+                />
+                <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 col-6 mx-auto mt-5">
+            <button class="btn btn-success d-block"
+                (click)="buscar()">
+                Descargar
+            </button>
+
+            <!-- <div *ngIf="show">
+                <ngb-toast
+                header="El archivo se ha guardado"
+                [delay]="5000"
+                [autohide]="autohide"
+                (mouseenter)="autohide = false"
+                (mouseleave)="autohide = true"
+                (hide)="show = false; autohide = true"
+                [class.bg-success]="!autohide"
+            >
+
+            <div>Toast</div>
+
+            </ngb-toast>
+            </div> -->
+
+        </div>
+    </div>
+    
+</div>
