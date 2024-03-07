@@ -21,7 +21,7 @@ export class ConnectionService {
     return this.http.get(route ,{responseType: 'blob'});
   }
 
-  get(path: string){
+  get(path: string):Observable<any>{
     const route = this.url + path;
     return this.http.get(route);
   }

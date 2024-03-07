@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ConnectionService } from 'src/app/servicios/connection.service';
 import {saveAs} from 'file-saver';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { FileUploadService } from 'src/app/servicios/file-upload.service';
 
 @Component({
   selector: 'app-file-upload-form',
   templateUrl: './file-upload-form.component.html',
-  // imports: [NgbNavModule],
+  // imports: [ToastComponent],
   styleUrls: ['./file-upload-form.component.scss']
 })
-export class FileUploadFormComponent {
+export class FileUploadFormComponent implements OnInit{
   active = 1;
-  carpeta = new FormControl();
+  carpeta: FormControl = this.fb.control('', [Validators.required]);
   allFiles: any = [];
   nombre = new FormControl('');
   apellidos = new FormControl('');
@@ -22,31 +22,49 @@ export class FileUploadFormComponent {
   showPreview: boolean = false;
   filesNames: string[] = [];
   arr: any[] = []
-
-
+  show = true;
   filesToDownload: File[] = [];
-
   formDataForMore= new FormData();
+  message: string = '';
+  tipo: any = '';
+  directories: String[] = [];
   constructor(
-    private connection: ConnectionService
+    private fileUploadService: FileUploadService,
+    private connection: ConnectionService,
+    private fb: FormBuilder
   ) {}
-  ngOnInit(): void {
-  }
 
+  ngOnInit() {
+    this.getAllDirectories();
+  }
+  
   downloadImg(url: any, name: any) {
     saveAs(url, name);
   }
 
-  buscarArchivos(){
-    this.connection.get(`archivos/${this.carpeta.value}`).subscribe((data)=>{
-      console.log('Imagen: ',data);
-      this.allFiles = data;
+  public getAllDirectories() {
+    this.fileUploadService.getAllDirectories().subscribe((data=>{
+      console.log(data);
+      this.directories = data;
+    }))
+  }
+
+  public buscarArchivos(){
+    this.fileUploadService.getFilesByRfc(this.carpeta.value)
+    .subscribe((files)=>{
+      this.allFiles = files.data;
+      this.message = files.message;
+      this.tipo = 0;
+    }, err =>{
+      console.log(err as string);
+      this.message = err.error.message;
+      this.tipo = 1;
     })
   }
 
   downloadItem(item: any){
     console.log(item);
-    this.connection.getImage(`archivo/data?carpeta=${item.directorio}&file=${item.archivo}`).subscribe((data) => {
+    this.connection.getImage(`expediente/archivo/data?carpeta=${item.nombre}&file=${item.archivo}`).subscribe((data) => {
       console.log(data);
       try {
         this.downloadImg(data, item.archivo);
@@ -54,7 +72,6 @@ export class FileUploadFormComponent {
       } catch (error) {
         alert('Error')
       }
-      
     });
   }
 
@@ -65,12 +82,10 @@ export class FileUploadFormComponent {
     };
     this.formData.append('registro', JSON.stringify(registro));
     this.fileAded = this.formData.get('fichero');
-    console.log(this.formData);
-    this.connection.post('save/imagen', this.formData).subscribe((data) => {
+    console.log(this.fileAded);
+    
+    this.connection.post('expediente/save/files', this.formData).subscribe((data) => {
       alert('Archivo enviado');
-      // this.nombre.reset();
-      // this.apellidos.reset();
-      // this.formData.set('fichero', '');
       window.location.reload();
     });
   }
@@ -85,19 +100,18 @@ export class FileUploadFormComponent {
   }
 
   onMultipleFiles(allFiles: any): void{
-    console.log(allFiles.target.files);
-    const files = allFiles.target.files;
+    let files: any = allFiles.target.files;
+    console.log('oc',files);
+    console.log('Send to backend: ', files);
+    this.formData.append('fichero', files);
     for(let i = 0; i < files.length; i ++ ){
+      console.log(files[i]);
+      this.formData.append('fichero',files[i]);
+      const fileReader = new FileReader();
+      fileReader.onload = (e) => (this.imageSrc = fileReader.result);
+      fileReader.readAsDataURL(files[i]);
       this.arr.push(files[i])
       this.filesNames.push(files[i].name)
-    }
-  }
-
-  sendMulripleFiles(){
-    let registroMultiple = {
-      nombre: this.nombre.value,
-      apellidos: this.apellidos.value,
-      archivos: this.arr
     }
   }
 
