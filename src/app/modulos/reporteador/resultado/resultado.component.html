@@ -1,0 +1,178 @@
+<nav class="navbar bg-primary border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white mx-5">Resultados</a>
+
+    <form class="d-flex" role="search">
+      <button type="button" class="btn btn-danger rounded-circle"
+      (click)="close()">X</button>
+    </form>
+  </div>
+</nav>
+  
+<div class="container d-grid gap-2 col-8 mx-auto mt-3 mb-5">
+  <div class="row">
+
+    <!-- ------------------------------------------ -->
+    <div class="card">
+      <div class="card-header text-center">
+        Datos seleccionados
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <div class="col-lg-8" *ngIf="data.fecha_pago.day">
+            <span class="fs-6">
+              Fecha de pago: {{data.fecha_pago.day}}/{{data.fecha_pago.month<10? '0'+ data.fecha_pago.month: data.fecha_pago.month}}/{{data.fecha_pago.year}}
+            </span>
+          </div>
+
+          <div class="col-lg-8" *ngIf="data.id_empleado !== ''">
+            <span class="fs-6">
+              Número de empleado: {{data.id_empleado}}
+            </span>
+          </div>
+        
+          <div class="col-lg-8" *ngIf="data.delegacion !== ''">
+            <span class="fs-6">
+              Of. de representación: {{data.delegacion}}
+            </span>
+          </div>
+        
+          <div class="col-lg-8" *ngIf="data.ct !== ''">
+            <span class="fs-6" >
+              Centro de trabajo: {{data.ct}}
+            </span>
+          </div>
+        
+          <div class="col-lg-8" *ngIf="data.puesto !== ''">
+            <span class="fs-6">
+              Puesto: {{data.puesto}}
+            </span>
+          </div>
+        
+          <div class="col-lg-8" *ngIf="data.servicio !== ''">
+            <span class="fs-6">
+              Servicio: {{data.servicio}}
+            </span>
+          </div>
+        
+          <div class="col-lg-8" *ngIf="data.area_gen !== ''">
+            <span class="fs-6">
+              Area generadora: {{data.area_gen}}
+            </span>
+          </div>
+        </blockquote>
+      </div>
+    </div>
+
+    <!-- Tabla de resultados -->
+      <div class="container mt-5" id="tabla">
+        <div class="table-responsive">
+
+          <table class="table text-center">
+            <thead>
+              <tr>
+                <th scope="col">Columna 1</th>
+                <th scope="col">Columna 2</th>
+                <th scope="col">Columna 3</th>
+                <th scope="col">Columna 4</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>@twitter</td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    <!-- <app-tabla></app-tabla> -->
+
+    <div class="d-grid gap-2 col-6 mx-auto mt-5">
+      <button class="btn btn-warning d-block"
+        (click)="downloadPdf()">
+          Descargar
+      </button>
+    </div>
+
+    <div class="d-grid gap-2 col-6 mx-auto mt-5">
+      <button class="btn btn-primary d-block"
+        (click)="captura()">
+          Captura
+      </button>
+    </div>
+
+</div>
+
+
