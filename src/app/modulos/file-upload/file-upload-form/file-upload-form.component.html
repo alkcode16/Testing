@@ -1,47 +1,40 @@
+
+
+<app-toast [value]="message" [type]="tipo"></app-toast>
+
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <h1>Registro de archivos</h1>
+            <h1>Registro de expediente</h1>
             <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
                 <li [ngbNavItem]="1">
-                    <a class="nav-link" ngbNavLink>Un archivo</a>
+                    <a class="nav-link" ngbNavLink>Registrar o modificar expediente</a>
                     <ng-template ngbNavContent>
                         <input type="text" placeholder="RFC" class="form-control" [formControl]="this.nombre" />
-                        <input type="text" placeholder="Nombre" class="form-control"
-                            [formControl]="this.apellidos" />
+                        <input type="text" placeholder="Nombre" class="form-control" [formControl]="this.apellidos" />
                         <input id="uploadCaptureInputFile" type="file" class="form-control"
-                            (change)="onFileSelected($event)" #fileUpload />
-                    </ng-template>
-                </li>
-                <li [ngbNavItem]="2">
-                    <a class="nav-link" ngbNavLink>Varios archivos</a>
-                    <ng-template ngbNavContent>
-                        <input type="text" placeholder="RFC" class="form-control" [formControl]="this.nombre" />
-                            <input type="text" placeholder="Nombre" class="form-control"
-                                [formControl]="this.apellidos" />
-                            <input id="uploadCaptureInputFile" type="file" class="form-control"
-                                (change)="onMultipleFiles($event)" multiple #multipleFiles>
-                            <div class="file-upload">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Tamaño</th>
-                                            <th scope="col">Tipo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr *ngFor="let file of arr; let i = index">
-                                            <td>{{file.name}}</td>
-                                            <td>{{file.size}} Bytes</td>
-                                            <td>{{file.type}}</td>
-                                        </tr>
-                                        <tr class="text-center" *ngIf="filesNames.length === 0">
-                                            <td colspan="4"><strong>Sin archivos aún</strong></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            (change)="onMultipleFiles($event)" multiple #multipleFiles>
+                        <div class="file-upload">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Tamaño</th>
+                                        <th scope="col">Tipo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let file of arr; let i = index">
+                                        <td>{{file.name}}</td>
+                                        <td>{{file.size}} Bytes</td>
+                                        <td>{{file.type}}</td>
+                                    </tr>
+                                    <tr class="text-center" *ngIf="filesNames.length === 0">
+                                        <td colspan="4"><strong>Sin archivos aún</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </ng-template>
                 </li>
             </ul>
@@ -55,9 +48,23 @@
         </div>
         <div class="col-sm">
             <h1>Buscar expediente</h1>
-            <form>
+            <!-- <form>
                 <input type="text" placeholder="Ingrese un RFC" class="form-control" [formControl]="this.carpeta" />
+            </form> -->
+            <form>
+                <select class="form-select" [formControl]="carpeta">
+                    <option disabled value="">--Seleccione un rfc--</option>
+                    <option *ngFor="let dir of directories" [value]="dir">{{dir}}</option>
+                </select>
+
+                <!-- <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select> -->
             </form>
+           
             <button class="btn btn-outline-success" (click)="buscarArchivos()">Buscar</button>
             <br>
             <table style="margin-top: 20px;" *ngIf="this.allFiles.length !== 0">
@@ -66,13 +73,13 @@
                         <th scope="col">Archivo</th>
                         <th scope="col">Directorio</th>
                         <th scope="col">Descargar</th>
-                        <!-- <th scope="col">Añadir</th> -->
+                        <th scope="col">Borrar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let file of allFiles; let i = index">
                         <td>{{file.archivo}}</td>
-                        <td>{{file.directorio}}</td>
+                        <td>{{file.url}}</td>
                         <td style="text-align: center;"><button (click)="downloadItem(file)">⇓</button></td>
                         <!-- <td style="text-align: center;"><button (click)="addItems(file)">☺</button></td> -->
                     </tr>

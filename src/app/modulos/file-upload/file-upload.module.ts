@@ -6,7 +6,8 @@ import { FileUploadRequestComponent } from './file-upload-request/file-upload-re
 import { FileUploadFormComponent } from './file-upload-form/file-upload-form.component';
 import { FileUploadComponent } from './file-upload.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastComponent } from 'src/app/components/toast/toast.component';
 
 
 @NgModule({
@@ -19,7 +20,9 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     FileUploadRoutingModule,
     ReactiveFormsModule,
-    NgbNavModule
+    NgbNavModule,
+    NgbModule,
+    ToastComponent
   ]
 })
 export class FileUploadModule { }
