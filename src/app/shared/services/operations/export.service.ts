@@ -8,7 +8,6 @@ import jsPDF from 'jspdf';
 import autoTable, { Column, UserOptions } from 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import * as JSZip from 'jszip';
-import * as saveAs from 'file-saver';
 
 interface jsPDFCustom extends jsPDF {
   autoTable: (options: UserOptions) => void;
@@ -21,15 +20,34 @@ export class ExportService {
 
   constructor() { }
 
-  public exportReport(fecha_pago:string):Observable<any>{
+  public exportReport(datosReporte: any, headerTabla:string[]):Observable<any>{
     return new Observable<any>((obs)=>{
       try {
+
+        console.log('General',datosReporte.datosGenerales);
+        console.log('recibo en el servicio',datosReporte.datosRegistros);
+        console.log('########',headerTabla);
+
+        let bodyTable: any = [];
+
+        datosReporte.datosRegistros.forEach((ele: any) => {
+          const onlyData = Object.keys(ele).map(function (_) {
+            return ele[_];
+          });
+
+          bodyTable.push(onlyData);
+        });
+        
 
         const dateForPdf = formatDate(new Date(), 'dd/MM/yyyy', 'en-US');
 
         let zip:JSZip = new JSZip();
         const doc = new jsPDF('p','mm','letter');
         let nombreArchivo = prompt('Ingrese el nombre del archivo:');
+
+        if(nombreArchivo === null || nombreArchivo ===''){
+          return;
+        }
 
         /* Titulo del PDF */
         doc.setFontSize(8);
@@ -43,7 +61,7 @@ export class ExportService {
         doc.text('NOMINA SIAPISSSTE', 40,15);
         doc.text('QUINCENA', 40,20);
         doc.text('RESUMEN', 40,25);
-        doc.text(`FECHA DE PAGO: ${fecha_pago}`, 130,10);
+        doc.text(`FECHA DE PAGO: ${datosReporte}`, 130,10);
         doc.text(`FECHA DE GENERACIÓN: ${dateForPdf}`, 130,15);
 
         /* Tabla de contenido */
@@ -55,22 +73,8 @@ export class ExportService {
             halign: 'center',
             valign: 'middle',
           },
-          columns: [
-            { header: 'Dato 1', dataKey:'data1'},
-            { header: 'Dato 2', dataKey:'data2'},
-            { header: 'Dato 3', dataKey:'data3'},
-            { header: 'Dato 4', dataKey:'data4'},
-            { header: 'Dato 5', dataKey:'data5'},
-            { header: 'Dato 6', dataKey:'data6'},
-          ],
-          body:[
-            [1,2,3,4,5,6],
-            [1,2,3,4,5,6],
-            [1,2,3,4,5,6],
-            [1,2,3,4,5,6],
-            [1,2,3,4,5,6],
-            [1,2,3,4,5,6],
-          ],
+          columns: headerTabla,
+          body: bodyTable,
           margin: [40, 10]
         });
         console.log(nombreArchivo);

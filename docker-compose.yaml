@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  reporteador:
+    image: node:18
+    ports:
+      - "8080:80"
+    networks:
+      - reporteador
+
+
+
+networks:
+  reporteador:

@@ -16,7 +16,8 @@ export class DialogServiceService {
       keyboard: salirEsc === null ? false : salirEsc,
       centered: true,
       backdrop: 'static',
-      size: size === '' ? 'xl': size
+      size: size === '' ? 'xl': size,
+      fullscreen: true
     });
 
     modal.componentInstance.data = data;

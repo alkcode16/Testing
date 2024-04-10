@@ -23,6 +23,7 @@ const routes: Routes = [
         (m) => m.FileUploadModule
       ),
   },
+  { path: '**', pathMatch: 'full', redirectTo: 'main' },
 ];
 
 @NgModule({

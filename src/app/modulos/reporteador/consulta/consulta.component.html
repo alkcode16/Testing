@@ -1,117 +1,285 @@
-<div class="container form-group d-grid gap-2 col-6 mx-auto mt-5">
 
+<app-toast [mensaje]="mensaje" [tipo]="encontrado"></app-toast>
+
+<div class="container form-group d-grid gap-2 col-8 mx-auto mt-5">
     <form [formGroup]="formularioConsulta">
-        <div class="row mb-3">
+        <div class="row mb-5 text-center">
             <div class="col-lg-6 text-center">
+                <label><strong>Número de empleado</strong></label>
+            </div>
+            <div class="col-lg-4 text-center">
+                <input type="text" class="form-control" maxlength="6" formControlName="id_empleado" placeholder="Número de empleado">
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-lg-3 text-center">
                 <label><strong>Fecha de pago:</strong></label>
                 <span class="fs-4 ms-3 text-danger">*</span>
             </div>
         
-            <div class="col-lg-6 text-center">
+            <div class="col-lg-3 text-center">
                 <div class="input-group">
-                    <button class="btn btn-outline-secondary bi bi-calendar" (click)="d.toggle()" type="button"></button>
-                    <input
+                    <input type="date" formControlName="fecha_pago" class="form-control" placeholder="aaaa-mm-dd">
+                    <!-- <button class="btn btn-outline-secondary bi bi-calendar" (click)="d.toggle()" type="button"></button>
+                     <input
                         formControlName="fecha_pago"  
                         class="form-control"
                         placeholder="aaaa-mm-dd"
                         name="dp"
                         ngbDatepicker
                         #d="ngbDatepicker"
-                    />
+                    /> -->
+                </div>
+            </div>
+
+        <!-- </div> -->
+
+        <!-- <div class="row mb-3"> -->
+            <div class="col-lg-3 text-center">
+                <label><strong>Fecha de imputación:</strong></label>
+            </div>
+        
+            <div class="col-lg-3 text-center">
+                <div class="input-group">
+                    <input type="date" formControlName="fecha_imputacion" class="form-control" placeholder="aaaa-mm-dd">
+                    <!-- <button class="btn btn-outline-secondary bi bi-calendar" (click)="e.toggle()" type="button"></button>
+                    <input
+                        formControlName="fecha_imputacion"  
+                        class="form-control"
+                        placeholder="aaaa-mm-dd"
+                        name="dp"
+                        ngbDatepicker
+                        #e="ngbDatepicker"
+                    /> -->
                 </div>
             </div>
             <!-- {{formularioConsulta.value.fecha_pago | json}} -->
         </div>
 
-        <div class="row mb-3">
-            <div class="col-lg-6 text-center">
-                <label><strong>Número de empleado</strong></label>
-            </div>
-            <div class="col-lg-6 text-center">
-                <input type="text" class="form-control" formControlName="id_empleado" placeholder="Número de empleado">
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-lg-6 text-center">
+        <div class="row mb-4">
+            <div class="col-lg-3 text-center">
                 <label><strong>Of. de representacion estatal</strong></label>
             </div>
-            <div class="col-lg-6 text-center">
-                <select class="form-select" aria-label="Default select example" formControlName="delegacion">
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_div_geografica" (change)="changeCts()">
                     <option value="" selected>Selecciona una Oficina</option>
-                    <option value="1">One</option>
+                    <option [ngValue]="ofRepr.id_div_geografica" *ngFor="let ofRepr of ofRepresentacion">{{ofRepr.id_div_geografica}} - {{ofRepr.n_div_geografica}}</option>
+                    <!-- <option value="09">09</option>
                     <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="3">Three</option> -->
                   </select>
             </div>
-        </div>
+        <!-- </div> -->
 
-        <div class="row mb-3">
-            <div class="col-lg-6 text-center">
+        <!-- <div class="row mb-3"> -->
+            <div class="col-lg-3 text-center">
                 <label><strong>Centro de trabajo</strong></label>
             </div>
-            <div class="col-lg-6 text-center">
-                <select class="form-select" aria-label="Default select example" formControlName="ct">
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_centro_trabajo">
                     <option value="" selected>Selecciona un centro de trabajo</option>
-                    <option value="1">One</option>
+                    <option [ngValue]="ct.id_centro_trabajo" *ngFor="let ct of cts">{{ct.id_centro_trabajo}} - {{ct.n_centro_trabajo}}</option>
+                    <!-- <option value="1">One</option>
                     <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="3">Three</option> -->
                   </select>
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-lg-6 text-center">
-                <label><strong>Puesto</strong></label>
+        <div class="row mb-4">
+            <div class="col-lg-3 text-center">
+                <label><strong>Puesto plaza</strong></label>
             </div>
-            <div class="col-lg-6 text-center">
-                <select class="form-select" aria-label="Default select example" formControlName="puesto">
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_puesto_plaza">
                     <option value="" selected>Selecciona un puesto</option>
+                    <option [ngValue]="puesto.clave" *ngFor="let puesto of puestos_plaza">{{puesto.clave}} - {{puesto.descripcion}}</option>
+                    <!-- <option value="" selected>Selecciona un puesto plaza</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="3">Three</option> -->
                   </select>
             </div>
-        </div>
 
-        <div class="row mb-3">
-            <div class="col-lg-6 text-center">
+            <div class="col-lg-3 text-center">
                 <label><strong>Servicio</strong></label>
             </div>
-            <div class="col-lg-6 text-center">
-                <select class="form-select" aria-label="Default select example" formControlName="servicio">
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_clave_servicio">
                     <option value="" selected>Selecciona un servicio</option>
+                    <option [ngValue]="servicio.clave" *ngFor="let servicio of servicios">{{servicio.clave}} - {{servicio.descripcion}}</option>
+                    <!-- <option value="" selected>Selecciona un servicio</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option> -->
+                </select>
+            </div>
+        </div>
+
+        <!-- <div class="row mb-4">
+            <div class="col-lg-3 text-center">
+                <label><strong>Horario</strong></label>
+            </div>
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_horario">
+                    <option value="" selected>Selecciona un horario</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
             </div>
-        </div>
 
-        <div class="row mb-3">
-            <div class="col-lg-6 text-center">
+            <div class="col-lg-3 text-center">
+                <label><strong>Nivel</strong></label>
+            </div>
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_nivel">
+                    <option value="" selected>Selecciona un nivel</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+        </div> -->
+
+        <!-- <div class="row mb-4">
+            <div class="col-lg-3 text-center">
+                <label><strong>Subnivel</strong></label>
+            </div>
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_sub_nivel">
+                    <option value="" selected>Selecciona un subnivel</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+
+            <div class="col-lg-3 text-center">
+                <label><strong>Turno</strong></label>
+            </div>
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_turno">
+                    <option value="" selected>Selecciona un turno</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+        </div> -->
+
+        <!-- <div class="row mb-4">
+            <div class="col-lg-3 text-center">
+                <label><strong>Tipo de jornada</strong></label>
+            </div>
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_tipo_jornada">
+                    <option value="" selected>Selecciona un tipo de jornada</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+
+            <div class="col-lg-3 text-center">
+                <label><strong>Centro de pago</strong></label>
+            </div>
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_centro_pago">
+                    <option value="" selected>Selecciona un centro de pago</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+        </div> -->
+
+        <!-- <div class="row mb-4">
+            <div class="col-lg-3 text-center">
+                <label><strong>Tipo de tabulador</strong></label>
+            </div>
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_tipo_tabulador">
+                    <option value="" selected>Selecciona un tipo de tabulador</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+
+            <div class="col-lg-3 text-center">
+                <label><strong>Tipo de puesto</strong></label>
+            </div>
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_tipo_puesto">
+                    <option value="" selected>Selecciona un tipo de puesto</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+        </div> -->
+
+        
+        <!-- <div class="row mb-4">
+            <div class="col-lg-3 text-center">
+                <label><strong>Zona</strong></label>
+            </div>
+            <div class="col-lg-3 text-center">
+                <select class="form-select" aria-label="Default select example" formControlName="id_zona">
+                    <option value="" selected>Selecciona un zona</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+
+            <div class="col-lg-3 text-center">
                 <label><strong>Área generadora</strong></label>
             </div>
-            <div class="col-lg-6 text-center">
+            <div class="col-lg-3 text-center">
 
-                <select class="form-select" aria-label="Default select example" formControlName="area_gen">
+                <select class="form-select" aria-label="Default select example" formControlName="id_area_generadora">
                     <option value="" selected>Selecciona un área generadora</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
             </div>
-        
-        </div>
+
+        </div> -->
+
     </form>
 
-    <div class="d-grid gap-2 col-6 mx-auto mt-5">
-        <button class="btn btn-success d-block"
-            [disabled]="formularioConsulta.invalid"
+    <div class="d-grid gap-2 col-6 mx-auto mt-5 mb-5">
+        <button class="btn btn-issste d-block"
+            [disabled]="(formularioConsulta.value.id_empleado === '' || formularioConsulta.value.id_empleado.length < 6) &&
+                        formularioConsulta.value.fecha_pago === '' &&
+                        formularioConsulta.value.fecha_imputacion === '' &&
+                        formularioConsulta.value.id_div_geografica === '' &&
+                        formularioConsulta.value.id_centro_trabajo === '' &&
+                        formularioConsulta.value.id_puesto_plaza === '' &&
+                        formularioConsulta.value.id_clave_servicio === '' &&
+                        formularioConsulta.value.id_horario === '' &&
+                        formularioConsulta.value.id_nivel === '' &&
+                        formularioConsulta.value.id_sub_nivel === '' &&
+                        formularioConsulta.value.id_turno === '' &&
+                        formularioConsulta.value.id_tipo_jornada === '' &&
+                        formularioConsulta.value.id_centro_pago === '' &&
+                        formularioConsulta.value.id_tipo_tabulador === '' &&
+                        formularioConsulta.value.id_tipo_puesto === '' &&
+                        formularioConsulta.value.id_zona === '' &&
+                        formularioConsulta.value.id_area_generadora === ''
+                        "
             (click)="buscar()">
             Consultar
         </button>
+        <!-- <button class="btn btn-issste d-block"
+            [disabled]="formularioConsulta.valid"
+            (click)="buscar()">
+            Consultar
+        </button> -->
     </div>
 
-    
 </div>

@@ -3,3 +3,34 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+
+
+:root{
+    --issste: #9F2241;
+    --issste-second: #D4C19C;
+}
+
+.issste{
+    background: var(--issste);
+}
+
+.issste-second{
+    background: var(--issste-second);
+}
+
+.btn-issste{
+    background: var(--issste-second);
+}
+
+.btn-issste:hover{
+    // color: #9F2241;
+    color: aliceblue;
+    background-color: #bead8b;
+    // animation-name: tamanio;
+    // animation-duration:2s;
+}
+
+@keyframes tamanio {
+    from{ font-size: 15px; }
+    to{ font-size: 20px; }
+}

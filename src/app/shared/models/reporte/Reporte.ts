@@ -1,0 +1,61 @@
+export interface Reporte{
+    id_empleado:string;
+    nombre:string;
+    id_empresa:string;
+    id_sociedad:string;
+    fec_pago:string;
+    fec_imputacion:string;
+    id_centro_trabajo:string;
+    id_div_geografica:string;
+    num_cuenta:string;
+    id_banco:string;
+    total_devengos:number;
+    liquido:number;
+    ispt:number;
+    id_clave_servicio:string;
+    id_horario:string;
+    n_horario:string;
+    id_nivel:string;
+    id_sub_nivel:string;
+    id_puesto_plaza:string;
+    n_puesto_plaza:string;
+    id_turno:string;
+    id_tipo_jornada:string;
+    id_centro_pago:string;
+    id_tipo_tabulador:string;
+    id_tipo_puesto:string;
+    id_zona:string;
+    id_area_generadora:string;
+    n_area_generadora:string;
+}
+
+export class ReporteClass implements Reporte{
+    id_empleado='';
+    nombre='';
+    id_empresa='';
+    id_sociedad='';
+    fec_pago='';
+    fec_imputacion='';
+    id_centro_trabajo='';
+    id_div_geografica='';
+    num_cuenta='';
+    id_banco='';
+    total_devengos=0;
+    liquido=0;
+    ispt=0;
+    id_clave_servicio='';
+    id_horario='';
+    n_horario='';
+    id_nivel='';
+    id_sub_nivel='';
+    id_puesto_plaza='';
+    n_puesto_plaza='';
+    id_turno='';
+    id_tipo_jornada='';
+    id_centro_pago='';
+    id_tipo_tabulador='';
+    id_tipo_puesto='';
+    id_zona='';
+    id_area_generadora='';
+    n_area_generadora='';
+}

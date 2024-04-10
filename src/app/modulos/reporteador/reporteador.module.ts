@@ -23,7 +23,8 @@ import { NgbHighlight } from '@ng-bootstrap/ng-bootstrap';
     ToastComponent,
     TablaComponent,
     ReactiveFormsModule,
-    NgbHighlight
+    NgbHighlight,
+    TablaComponent
   ]
 })
 export class ReporteadorModule { }
