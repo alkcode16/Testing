@@ -13,18 +13,20 @@ import { NgbHighlight } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
+    ConsultaComponent,
     ReporteadorComponent,
     ResultadoComponent
   ],
   imports: [
     CommonModule,
     ReporteadorRoutingModule,
-    ConsultaComponent,
+    // ConsultaComponent,
     ToastComponent,
     TablaComponent,
     ReactiveFormsModule,
     NgbHighlight,
-    TablaComponent
+    TablaComponent,
+    ReactiveFormsModule
   ]
 })
 export class ReporteadorModule { }

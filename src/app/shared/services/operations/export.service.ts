@@ -81,15 +81,15 @@ export class ExportService {
         
         // let archivo = doc.save(`${nombreArchivo==='' ? 'Reporte':nombreArchivo}.pdf`);
         /* Descarga de reporte */
-        // obs.next(doc.save(`${nombreArchivo==='' ? 'Reporte':nombreArchivo}.pdf`));
+        obs.next(doc.save(`${nombreArchivo==='' ? 'Reporte':nombreArchivo}.pdf`));
 
-        zip.file(`Reporte.pdf`, doc.output(`blob`));
+        // zip.file(`Reporte.pdf`, doc.output(`blob`));
 
-        obs.next(
-          zip.generateAsync({type:'blob'}).then(content=>{
-            FileSaver.saveAs(content, `${nombreArchivo==='' ? 'Reporte':nombreArchivo}.zip`)
-          })
-        );
+        // obs.next(
+        //   zip.generateAsync({type:'blob'}).then(content=>{
+        //     FileSaver.saveAs(content, `${nombreArchivo==='' ? 'Reporte':nombreArchivo}.zip`)
+        //   })
+        // );
 
         // let archivoZip:JSZip = this.addZipFiles(doc);
         

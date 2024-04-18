@@ -17,15 +17,6 @@ registerLocaleData(es);
 
 @Component({
   selector: 'app-consulta',
-  standalone: true,
-  imports: [
-    CommonModule, 
-    NgbDatepickerModule, 
-    ReactiveFormsModule, 
-    JsonPipe, 
-    NgbToastModule,
-    ToastComponent
-  ],
   templateUrl: './consulta.component.html',
   styleUrls: ['./consulta.component.scss'],
   providers:[
@@ -33,7 +24,9 @@ registerLocaleData(es);
   ]
 })
 export class ConsultaComponent {
-  @Input() ofRep: any = ''
+  @Input() ofRep: any[] = []
+  @Input() puestos: any[] = []
+  @Input() servicios: any[] = []
   public mensaje: string = '';
   public encontrado = 0;
 
@@ -44,17 +37,25 @@ export class ConsultaComponent {
   public ofRepresentacion: any[] = [];
   public cts: any[] = [];
   public puestos_plaza: any[] = [];
-  public servicios: any[] = [];
+  public servicios1: any[] = [];
   /* Catalogos */
 
-  dialog = inject(DialogServiceService);
-  fb = inject(FormBuilder);
-  reportesService= inject(ReportesService);
-  datosService = inject(DatosService);
+  // dialog = inject(DialogServiceService);
+  // fb = inject(FormBuilder);
+  // reportesService= inject(ReportesService);
+  // datosService = inject(DatosService);
 
   //Variables
 	model!: NgbDateStruct;
 	date!: { year: null; month: null, day:null };
+
+  constructor(
+    private datosService: DatosService,
+    private reportesService: ReportesService,
+    private fb:FormBuilder,
+    private dialog:DialogServiceService
+
+  ){}
 
   formularioConsulta: FormGroup  = this.fb.group({
     id_empleado: this.fb.control(''),
@@ -78,12 +79,7 @@ export class ConsultaComponent {
 
   ngOnInit(){
     console.log('Recibo', this.ofRep);
-    
-    this.getOficinasRep();
-    this.getPuestosPlaza();
-    this.getServicios();
-    // this.getCentrosTrabajo();
-    // this.changeSelectOptions();
+
   }
   
   public buscar(){
@@ -165,45 +161,6 @@ export class ConsultaComponent {
 
   }
 
-  // Catalogos
-  public getOficinasRep(){
-    this.datosService.getOficinasRep().subscribe((res:ResponseApi)=>{
-      this.ofRepresentacion = res.data;
-      // console.log('Of.REP', this.ofRepresentacion);
-    });
-  }
-
-  public getPuestosPlaza(){
-    this.datosService.getPuestosPlazas().subscribe((response:ResponseApi)=>{
-      this.puestos_plaza = response.data;
-    });
-  }
-
-  public getServicios(){
-    this.datosService.getServicios().subscribe((response:ResponseApi)=>{
-      this.servicios = response.data;
-    });
-  }
-
-  ///////////////////////////////////Select//////////////////////////////// 
-  public changeSelectOptions(){
-    // SELECT Of de representacion
-    this.formularioConsulta.get('id_div_geografica')?.valueChanges
-    .pipe(
-      tap((_)=>{
-        this.formularioConsulta.get('id_centro_trabajo')?.reset('');
-        this.cts = [];
-      }),
-      // debounceTime(500),
-      switchMap((div_geografica: any)=> this.datosService.getCentrosTrab(div_geografica))
-    )
-    .subscribe(cts => {
-      
-      this.cts = cts.data;
-      console.log(cts);
-
-    });
-  }
 
   public changeCts(){
     this.formularioConsulta.get('id_centro_trabajo')?.reset('');

@@ -1,4 +1,3 @@
-
 <app-toast [mensaje]="mensaje" [tipo]="encontrado"></app-toast>
 
 <div class="container form-group d-grid gap-2 col-8 mx-auto mt-5">
@@ -64,7 +63,7 @@
             <div class="col-lg-3 text-center">
                 <select class="form-select" aria-label="Default select example" formControlName="id_div_geografica" (change)="changeCts()">
                     <option value="" selected>Selecciona una Oficina</option>
-                    <option [ngValue]="ofRepr.id_div_geografica" *ngFor="let ofRepr of ofRepresentacion">{{ofRepr.id_div_geografica}} - {{ofRepr.n_div_geografica}}</option>
+                    <option [ngValue]="ofRepr.id_div_geografica" *ngFor="let ofRepr of ofRep">{{ofRepr.id_div_geografica}} - {{ofRepr.n_div_geografica}}</option>
                     <!-- <option value="09">09</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option> -->
@@ -94,7 +93,7 @@
             <div class="col-lg-3 text-center">
                 <select class="form-select" aria-label="Default select example" formControlName="id_puesto_plaza">
                     <option value="" selected>Selecciona un puesto</option>
-                    <option [ngValue]="puesto.clave" *ngFor="let puesto of puestos_plaza">{{puesto.clave}} - {{puesto.descripcion}}</option>
+                    <option [ngValue]="puesto.clave" *ngFor="let puesto of puestos">{{puesto.clave}} - {{puesto.descripcion}}</option>
                     <!-- <option value="" selected>Selecciona un puesto plaza</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
