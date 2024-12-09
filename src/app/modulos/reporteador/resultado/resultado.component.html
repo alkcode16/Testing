@@ -130,6 +130,26 @@
       </div> -->
 
     <app-tabla [reportes]="this.data.datos"></app-tabla>
+
+    <nav class="mt-5 d-flex justify-content-center" aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link">1</a></li>
+        <li class="page-item"><a class="page-link">2</a></li>
+        <li class="page-item"><a class="page-link">3</a></li>
+        <li class="page-item"><a class="page-link">...</a></li>
+        <li class="page-item"><a class="page-link">12</a></li>
+        <li class="page-item">
+          <a class="page-link" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
     
     <div class="d-grid col-6 mx-auto mt-5">
       <button class="btn btn-warning d-block"

@@ -27,7 +27,7 @@
 #EXPOSE 443
 #--------------------------------------------------------------------------------------
 
-FROM node:latest  as node
+FROM node:18.17-alpine3.18 as node
 
 WORKDIR /app
 
@@ -45,6 +45,8 @@ COPY --from=node /app/dist/testing /usr/share/nginx/html
 
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
+
+# para construir: docker build -t spring-reportes:v1 .
 #-----------------------------------------------------------------------------------------
 
 # FROM node:18 AS build

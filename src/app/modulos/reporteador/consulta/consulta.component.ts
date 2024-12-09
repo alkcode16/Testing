@@ -13,6 +13,7 @@ import { ResponseApi } from 'src/app/modelos/response-api-model';
 import { ToastComponent } from 'src/app/shared/components/toast/toast.component';
 import { DatosService } from 'src/app/shared/services/datos/datos.service';
 import { switchMap, tap } from 'rxjs';
+import { Paginacion } from 'src/app/shared/models/paginacion/Paginacion';
 registerLocaleData(es);
 
 @Component({
@@ -58,7 +59,7 @@ export class ConsultaComponent {
   ){}
 
   formularioConsulta: FormGroup  = this.fb.group({
-    id_empleado: this.fb.control(''),
+    id_empleado: this.fb.control('407986'),
     fecha_pago: this.fb.control(''),
     fecha_imputacion: this.fb.control(''),
     id_div_geografica: this.fb.control(''),
@@ -125,6 +126,42 @@ export class ConsultaComponent {
     };
 
     // console.log(this.busqueda);
+
+    // this.reportesService.consultaDinamicaReportesPaginacion(this.busqueda, 0).subscribe((response: Paginacion)=>{
+    //   console.log('ya',response);
+    //   this.registros = response.content;
+    //   console.log('RESULTADOS',this.registros, response.pageable);
+
+    //     //  this.registros = response.data;
+
+    //   let datos={
+    //     parametros: this.busqueda,
+    //     datos:this.registros
+    //   }
+    
+    //   if(this.registros.length === 0){
+    //     // console.log();
+    //     this.mensaje = '¡No existen registros!';
+    //     this.encontrado = 2;
+    //   }else{
+    //     this.mensaje = 'Resultados de la consulta';
+    //     this.encontrado = 1;
+
+    //     this.dialog.openModal(
+    //       ResultadoComponent,
+    //       // this.registros,
+    //       datos,
+    //       true,
+    //       true,
+    //       'xl'
+    //     )
+    //   }
+    // }, (error)=>{
+    //   console.log('Entro al error',error.error.message);
+    //   this.mensaje = error.error.message;
+    //   this.encontrado = 2;
+
+    // });
 
     this.reportesService.consultaDinamicaReportes(this.busqueda).subscribe((response: ResponseApi)=>{
       
